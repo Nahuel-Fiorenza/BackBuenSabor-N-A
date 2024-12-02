@@ -3,7 +3,7 @@
 ## Usar las sigeuintes variables de environment:
 ```
 AUTH0_AUDIENCE=https://apiejemplotestauth0.com/
-AUTH0_ISSUER_URI=https://dev-yjl15nfd1nm0h2rx.us.auth0.com/
+AUTH0_ISSUER_URI=https://dev-x8vy0pjgozn71h5n.us.auth0.com/
 CLOUDINARY_API_KEY=424196343479554
 CLOUDINARY_API_SECRET=draOz-87OoxZehHDG_Zsh1UkPmM
 CLOUDINARY_NAME=dbglrv5xe
