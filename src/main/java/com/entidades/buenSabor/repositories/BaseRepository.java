@@ -26,7 +26,7 @@ public interface BaseRepository <E extends Base, ID extends Serializable> extend
 
     @Override
     default E getById(ID id){
-        logger.info("EJECUTANDO GEY BY ID SOBREESCRITO");
+        logger.info("EJECUTANDO GET BY ID SOBREESCRITO");
         var optionalEntity = findById(id);
 
         if (optionalEntity.isEmpty()){

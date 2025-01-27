@@ -1,6 +1,7 @@
 package com.entidades.buenSabor.utils;
 
 import com.entidades.buenSabor.domain.entities.*;
+import com.entidades.buenSabor.domain.enums.Rol;
 import com.entidades.buenSabor.repositories.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -75,7 +76,7 @@ class LocalidadesDownloader implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-     /*  RestTemplate restTemplate = new RestTemplate();
+     /* RestTemplate restTemplate = new RestTemplate();
         String jsonResponse = restTemplate.getForObject("https://infra.datos.gob.ar/georef/departamentos.json", String.class);
         JSONObject jsonObject = new JSONObject(jsonResponse);
         JSONArray departamentosArray = jsonObject.getJSONArray("departamentos");
@@ -115,7 +116,7 @@ class LocalidadesDownloader implements CommandLineRunner {
             localidadRepository.save(localidad);
         });
 
-        
+
 
         Empresa empresa1 = Empresa.builder()
                 .nombre("Empresa MCC")
@@ -421,17 +422,26 @@ class LocalidadesDownloader implements CommandLineRunner {
         ImagenPersona imagenEmpleado = ImagenPersona.builder()
                 .url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAboyCmArPxbW8rOU6NKGEfdDyT-M_2PNLXw&s")
                 .build();
+//creo el usuario
+        Usuario usuario =Usuario.builder()
+                .email("superadmin@mail.com")
+                .rol(Rol.valueOf("SUPERADMIN"))
+                .auth0Id("674cfeed0af1ac53f3f8d46b")
+                .eliminado(false).build();;
 
+//Creo el empleado y le asocio el usuario
         Empleado empleado = Empleado.builder()
                 .nombre("Pedro")
                 .apellido("Gonzalez")
                 .fechaNacimiento(LocalDate.of(2003,6,12))
                 .imagenPersona(imagenEmpleado)
                 .telefono("2615583344")
-                .sucursal(sucursal1)
+                .sucursal(sucursal1).usuario(usuario)
                 .build();
 
         this.empleadoRepository.save(empleado);
+
+
 
 */
     }

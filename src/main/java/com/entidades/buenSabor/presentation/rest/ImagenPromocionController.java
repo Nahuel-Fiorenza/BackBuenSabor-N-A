@@ -21,7 +21,7 @@ public class ImagenPromocionController {
     private ImagenPromocionService imagenPromocionService;
 
     @PostMapping("/upload")
-    @PreAuthorize("hasAnyAuthority('superadmin','administrador')")
+  //  @PreAuthorize("hasAnyAuthority('superadmin','administrador')")
     public List<ImagenPromocion> uploadImages(
             @RequestParam(value = "uploads", required = true) MultipartFile[] files) {
         try {
@@ -33,7 +33,7 @@ public class ImagenPromocionController {
     }
 
     @PostMapping("/deleteImg")
-    @PreAuthorize("hasAnyAuthority('superadmin','administrador')")
+  //  @PreAuthorize("hasAnyAuthority('superadmin','administrador')")
     public ResponseEntity<String> deleteById(@RequestParam("publicId") String publicId, @RequestParam("id") String id) {
         try {
             return this.imagenPromocionService.deleteImage(publicId, id);

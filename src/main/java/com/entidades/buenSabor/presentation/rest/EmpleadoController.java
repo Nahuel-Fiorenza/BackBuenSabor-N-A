@@ -22,12 +22,12 @@ public class EmpleadoController extends BaseControllerImp<Empleado, EmpleadoDto,
     @Autowired
     private EmpleadoRepository empleadoRepository;
     @GetMapping("/findBySucursal/{idSucursal}")
-    @PreAuthorize("hasAnyAuthority('superadmin')")
+    //@PreAuthorize("hasAnyAuthority('superadmin')")
     public ResponseEntity<?> findBySucursal(@PathVariable("idSucursal") Long idSucursal){
         return ResponseEntity.ok(facade.findBySucursal(idSucursal));
     }
     @GetMapping("/findByEmail")
-    @PreAuthorize("hasAnyAuthority('superadmin', 'administrador', 'cajero', 'cocinero', 'delivery')")
+    //@PreAuthorize("hasAnyAuthority('superadmin', 'administrador', 'cajero', 'cocinero', 'delivery')")
     public ResponseEntity<?> findByEmail(@RequestParam String email){
         return ResponseEntity.ok(facade.findByEmail(email));
     }

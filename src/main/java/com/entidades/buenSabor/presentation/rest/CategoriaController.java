@@ -20,13 +20,13 @@ public class CategoriaController extends BaseControllerImp<Categoria, CategoriaD
     }
 
     @DeleteMapping("/baja/{idCategoria}/{idSucursal}")
-    @PreAuthorize("hasAnyAuthority('superadmin','administrador')")
+    //@PreAuthorize("hasAnyAuthority('superadmin','administrador')")
     public void deleteInSucursales(@PathVariable("idCategoria") Long idCategoria, @PathVariable("idSucursal") Long idSucursal){
         facade.deleteInSucursales(idCategoria, idSucursal);
     }
 
     @GetMapping("/findByEmpresa/{idEmpresa}")
-    @PreAuthorize("hasAnyAuthority('superadmin','administrador', 'cajero', 'cocinero')")
+    //@PreAuthorize("hasAnyAuthority('superadmin','administrador', 'cajero', 'cocinero')")
     public ResponseEntity<?> findByEmpresa(@PathVariable("idEmpresa") Long idEmpresa){
         return ResponseEntity.ok(facade.findByEmpresa(idEmpresa));
     }
