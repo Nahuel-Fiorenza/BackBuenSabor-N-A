@@ -35,7 +35,7 @@ public class MercadoPagoService {
 
         try {
             // Configuración del Access Token
-            MercadoPagoConfig.setAccessToken("APP_USR-6868831087152965-060612-d9acf8e76d3b35850e81882d8b6ff7a0-1844671669");
+            MercadoPagoConfig.setAccessToken("TEST-1595036870960999-013110-145f4bf8d39a55623d83b65d521208f3-163266336");
 
             // Crear item de la preferencia
             PreferenceItemRequest itemRequest = PreferenceItemRequest.builder()

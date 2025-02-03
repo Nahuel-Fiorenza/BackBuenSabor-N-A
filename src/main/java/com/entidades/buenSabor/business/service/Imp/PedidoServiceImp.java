@@ -148,7 +148,7 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido,Long> implements Ped
 
         }
     }
-
+//Para el Reporte GENERAL
     @Override
     public List<Pedido> findBySucursal(Long idSucursal) {
         return this.pedidoRepository.findBySucursalIdOrderByIdDesc(idSucursal);
@@ -271,6 +271,7 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido,Long> implements Ped
 
         return horaEstimada;
     }
+    //validación de stock antes de confirmar la compra.
     @Transactional
     public void descontarStock(Articulo articulo, Integer cantidad) {
         if(articulo instanceof ArticuloInsumo){

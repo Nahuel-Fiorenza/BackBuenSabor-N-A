@@ -18,6 +18,8 @@ import java.util.List;
 public class ReporteServiceImp implements ReporteService {
     @Autowired
     private PedidoService pedidoService;
+    //reporte de ganancias POR MES
+
     @Override
     public byte[] reporteGanancias(LocalDate startDate, LocalDate endDate, Long idSucursal) throws IOException {
         List<Object[]> ganancias = this.pedidoService.getGananciaByFecha(startDate, endDate,idSucursal);
@@ -70,6 +72,7 @@ public class ReporteServiceImp implements ReporteService {
 
         return baos.toByteArray();
     }
+    //reporte de productos POR MES
 
     @Override
     public byte[] reporteProductos(LocalDate startDate, LocalDate endDate, Long idSucursal) throws IOException {
