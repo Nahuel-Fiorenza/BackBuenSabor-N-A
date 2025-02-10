@@ -11,19 +11,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/articuloInsumo_stock_Sucursal")
 @CrossOrigin("*")
 public class ArticuloInsumo_stock_SucursalController extends BaseControllerImp<ArticuloInsumo_stock_Sucursal, ArticuloInsumo_stock_SucursalDto, ArticuloInsumo_stock_SucursalDto, Long, ArticuloInsumo_stock_SucursalFacadeImp> {
-    public ArticuloInsumo_stock_SucursalController(ArticuloInsumoFacadeImp facade) {
-        super(facade);
+
+         @Autowired
+        private ArticuloInsumo_stock_SucursalControllerFacade stockSucursalFacade;
+
+        @PutMapping("/actualizar")
+        public ResponseEntity<StockSucursalDto> actualizarStock(
+                @RequestParam Long articuloInsumoId,
+                @RequestParam Long sucursalId,
+                @RequestParam Integer cantidad) {
+            return ResponseEntity.ok(stockSucursalFacade.actualizarStock(articuloInsumoId, sucursalId, cantidad));
+        }
     }
 
-    @GetMapping("/findBySucursal/{idSucursal}")
-    // @PreAuthorize("hasAnyAuthority('superadmin','administrador', 'cajero', 'cocinero')")
-    public ResponseEntity<?> findBySucursales(@PathVariable("idSucursal") Long idSucursal) {
-        return ResponseEntity.ok(facade.findBySucursales(idSucursal));
-    }
 
-    @GetMapping("/paraVenta/{idSucursal}")
-    public ResponseEntity<?> paraVenta(@PathVariable("idSucursal") Long idSucursal) {
-        return ResponseEntity.ok(facade.paraVenta(idSucursal));
-    }
-
-   }
+}

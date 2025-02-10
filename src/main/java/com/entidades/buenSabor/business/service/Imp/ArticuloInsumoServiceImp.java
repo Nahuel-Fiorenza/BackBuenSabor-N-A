@@ -43,9 +43,7 @@ public class ArticuloInsumoServiceImp extends BaseServiceImp<ArticuloInsumo,Long
     public ArticuloInsumo create(ArticuloInsumo articuloInsumo) {
 
         //Validaciones iniciales
-        if(articuloInsumo.getStockActual() < articuloInsumo.getStockMinimo()){
-            throw new RuntimeException("El stock actual debe ser mayor al stock minimo.");
-        } else if (articuloInsumo.getStockMaximo() < 0 || articuloInsumo.getStockMinimo() < 0) {
+        if(articuloInsumo.getStockMaximo() < 0 || articuloInsumo.getStockMinimo() < 0) {
             throw new RuntimeException("El stock minimo o maximo debe ser mayor a cero.");
         }
 
@@ -103,7 +101,7 @@ public class ArticuloInsumoServiceImp extends BaseServiceImp<ArticuloInsumo,Long
                 new RuntimeException("Insumo no encontrado: { id: " + id + " }"));
 
         //Validaciones iniciales
-        if(newArticuloInsumo.getStockActual() < newArticuloInsumo.getStockMinimo()){
+        if(newArticuloInsumo.getArticuloInsumo_stock_sucursal().getStockActual() < newArticuloInsumo.getStockMinimo()){
             throw new RuntimeException("El stock actual debe ser mayor al stock minimo.");
         } else if (newArticuloInsumo.getStockMaximo() < 0 || newArticuloInsumo.getStockMinimo() < 0) {
             throw new RuntimeException("El stock minimo o maximo debe ser mayor a cero.");

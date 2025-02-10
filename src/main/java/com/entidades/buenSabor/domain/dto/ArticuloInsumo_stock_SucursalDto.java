@@ -13,6 +13,6 @@ import lombok.Setter;
 @Getter
 public class ArticuloInsumo_stock_SucursalDto extends ArticuloDto {
     private Integer stockActual;
-    private ArticuloInsumo articuloInsumo;
-    private Sucursal sucursal;
+    private Long articuloInsumoID;
+    private Long sucursalID;
 }
