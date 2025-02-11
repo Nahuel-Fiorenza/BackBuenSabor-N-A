@@ -16,6 +16,6 @@
         private String descripcion;
         private Integer tiempoEstimadoMinutos;
         private String preparacion;
-
+        private Long sucursales;
         private Set<ArticuloManufacturadoDetalleDto> articuloManufacturadoDetalles = new HashSet<>();
     }

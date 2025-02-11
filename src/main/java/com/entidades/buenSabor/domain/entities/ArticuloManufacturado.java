@@ -29,5 +29,8 @@ public class ArticuloManufacturado extends Articulo{
     @Builder.Default
     private Set<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles = new HashSet<>();
 
+    private Long sucursales;
+
+
 
 }

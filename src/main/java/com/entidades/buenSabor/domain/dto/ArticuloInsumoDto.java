@@ -15,4 +15,7 @@ public class ArticuloInsumoDto extends ArticuloDto{
     private Integer stockMaximo;
     private Integer stockMinimo;
     private Boolean esParaElaborar;
+    private Long sucursales;
+
+
 }

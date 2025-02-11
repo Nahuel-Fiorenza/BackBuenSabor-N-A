@@ -11,12 +11,9 @@ import java.util.List;
 
 @Repository
 public interface ArticuloInsumoRepository extends BaseRepository<ArticuloInsumo,Long> {
-    @Query("SELECT ai FROM ArticuloInsumo ai " +
-            "JOIN ai.categoria c " +
-            "JOIN c.sucursales s " +
-            "WHERE s.id = :idSucursal " +
-            "ORDER BY ai.habilitado DESC")
+    @Query("SELECT ai FROM ArticuloInsumo ai WHERE ai.sucursales= :idSucursal ORDER BY ai.habilitado DESC")
     List<ArticuloInsumo> findBySucursales(@Param("idSucursal") Long idSucursal);
+
 
     @Query("SELECT ai FROM ArticuloInsumo ai JOIN ai.categoria c JOIN c.sucursales s WHERE ai.esParaElaborar = false AND s.id = :idSucursal")
     List<ArticuloInsumo> findAllArticuloInsumosWithEsParaElaborarFalse(@Param("idSucursal") Long idSucursal);

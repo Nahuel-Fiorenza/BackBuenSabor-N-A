@@ -43,7 +43,9 @@ public class ArticuloInsumoServiceImp extends BaseServiceImp<ArticuloInsumo,Long
     public ArticuloInsumo create(ArticuloInsumo articuloInsumo) {
 
         //Validaciones iniciales
-        if(articuloInsumo.getStockMaximo() < 0 || articuloInsumo.getStockMinimo() < 0) {
+        if(articuloInsumo.getStockActual() < articuloInsumo.getStockMinimo()){
+            throw new RuntimeException("El stock actual debe ser mayor al stock minimo.");
+        } else if (articuloInsumo.getStockMaximo() < 0 || articuloInsumo.getStockMinimo() < 0) {
             throw new RuntimeException("El stock minimo o maximo debe ser mayor a cero.");
         }
 
@@ -101,7 +103,7 @@ public class ArticuloInsumoServiceImp extends BaseServiceImp<ArticuloInsumo,Long
                 new RuntimeException("Insumo no encontrado: { id: " + id + " }"));
 
         //Validaciones iniciales
-        if(newArticuloInsumo.getArticuloInsumo_stock_sucursal().getStockActual() < newArticuloInsumo.getStockMinimo()){
+        if(newArticuloInsumo.getStockActual() < newArticuloInsumo.getStockMinimo()){
             throw new RuntimeException("El stock actual debe ser mayor al stock minimo.");
         } else if (newArticuloInsumo.getStockMaximo() < 0 || newArticuloInsumo.getStockMinimo() < 0) {
             throw new RuntimeException("El stock minimo o maximo debe ser mayor a cero.");
@@ -199,6 +201,7 @@ public class ArticuloInsumoServiceImp extends BaseServiceImp<ArticuloInsumo,Long
                 .orElseThrow(() -> new RuntimeException("El articulo insumo: " + id + " no existe."));
 
         boolean hayDetalles = false;
+
 
         //Verificar si el insumo tiene detalles asociado
         List<ArticuloManufacturadoDetalle> insumoEsUtilizado = this.articuloManufacturadoDetalleRepository.getByArticuloInsumo(insumo);
