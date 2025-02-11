@@ -3,6 +3,7 @@ package com.entidades.buenSabor.business.facade.Base;
 
 import com.entidades.buenSabor.business.mapper.BaseMapper;
 import com.entidades.buenSabor.business.service.Base.BaseService;
+import com.entidades.buenSabor.business.service.DomicilioService;
 import com.entidades.buenSabor.domain.dto.BaseDto;
 import com.entidades.buenSabor.domain.entities.Base;
 
@@ -18,6 +19,9 @@ public abstract class BaseFacadeImp <E extends Base,D extends BaseDto, GD extend
     public BaseFacadeImp(BaseService<E,ID> baseService, BaseMapper<E,D,GD> baseMapper) {
         this.baseService = baseService;
         this.baseMapper = baseMapper;
+    }
+
+    public BaseFacadeImp(DomicilioService domicilioService) {
     }
 
     public GD createNew(D request){
