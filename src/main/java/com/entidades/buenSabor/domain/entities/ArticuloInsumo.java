@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 @Entity
 @AllArgsConstructor
@@ -15,7 +16,11 @@ import org.hibernate.envers.Audited;
 @Audited
 public class ArticuloInsumo extends Articulo{
     private Double precioCompra;
-    private Integer stockActual;
+
+    @OneToMany(mappedBy = "articuloInsumo", cascade = CascadeType.ALL)
+    @NotAudited
+    private ArticuloInsumo_stock_Sucursal articuloInsumo_stock_sucursal;
+
     private Integer stockMaximo;
     private Integer stockMinimo;
     private Boolean esParaElaborar;

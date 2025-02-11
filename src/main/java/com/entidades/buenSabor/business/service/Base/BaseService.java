@@ -5,7 +5,7 @@ import com.entidades.buenSabor.domain.entities.Base;
 import java.io.Serializable;
 import java.util.List;
 
-public interface BaseService <E extends Base, ID extends Serializable>{
+public interface    BaseService <E extends Base, ID extends Serializable>{
     public E create(E request);
     public E getById(ID id);
     public List<E> getAll();
