@@ -16,7 +16,11 @@ import org.hibernate.envers.NotAudited;
 @Audited
 public class ArticuloInsumo extends Articulo{
     private Double precioCompra;
-    private Integer stockActual;
+
+    @OneToMany(mappedBy = "articuloInsumo", cascade = CascadeType.ALL)
+    @NotAudited
+    private ArticuloInsumo_stock_Sucursal articuloInsumo_stock_sucursal;
+
     private Integer stockMaximo;
     private Integer stockMinimo;
     private Boolean esParaElaborar;
