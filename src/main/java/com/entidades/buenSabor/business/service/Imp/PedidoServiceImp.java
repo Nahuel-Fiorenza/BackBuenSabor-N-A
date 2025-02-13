@@ -52,14 +52,14 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido,Long> implements Ped
     @Override
     public Pedido create(Pedido pedido) {
         //Verificar el tipo de envio y forma de pago
-        if(pedido.getTipoEnvio() == TipoEnvio.TAKE_AWAY && pedido.getFormaPago() == FormaPago.MERCADO_PAGO){
+        if (pedido.getTipoEnvio() == TipoEnvio.TAKE_AWAY && pedido.getFormaPago() == FormaPago.MERCADO_PAGO) {
             throw new RuntimeException("No se puede pagar con Mercado Pago retirando en el local.");
-        }else if(pedido.getTipoEnvio() == TipoEnvio.DELIVERY && pedido.getFormaPago() == FormaPago.EFECTIVO){
+        } else if (pedido.getTipoEnvio() == TipoEnvio.DELIVERY && pedido.getFormaPago() == FormaPago.EFECTIVO) {
             throw new RuntimeException("No se puede pagar en Efectivo en envio por delivery.");
         }
 
         //Inicializar estado
-        if(pedido.getEstado() == null){
+        if (pedido.getEstado() == null) {
             pedido.setEstado(Estado.PENDIENTE);
         }
 
@@ -74,36 +74,62 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido,Long> implements Ped
         Set<Articulo> articulos = new HashSet<>();
         Double total = 0.;
 
-        for(DetallePedido detalle: pedido.getDetallePedidos()){
+        for (DetallePedido detalle : pedido.getDetallePedidos()) {
             DetallePedido detallePedido = detalle;
-            if(detalle.getArticulo() != null){
+            if (detalle.getArticulo() != null) {
                 Articulo articulo = this.articuloRepository.findById(detalle.getArticulo().getId())
                         .orElseThrow(() -> new RuntimeException("El articulo id: " + detalle.getArticulo().getId() + " no existe."));
                 descontarStock(articulo, detallePedido.getCantidad());
                 detallePedido.setArticulo(articulo);
-                detallePedido.setSubTotal(detalle.getCantidad() * articulo.getPrecioVenta());
+                //aplico descuento en caso de que se elija el medio de TAKE AWAY
+                if (pedido.getTipoEnvio() == TipoEnvio.TAKE_AWAY) {
+                    detallePedido.setSubTotal(detalle.getCantidad() * articulo.getPrecioVenta());
+                    System.out.println("El subtotal de pedido antes de promo" + detallePedido.getSubTotal());
+                    detallePedido.setSubTotal(detallePedido.getSubTotal() * 0.9);
+                    System.out.println("El subtotal de pedido DESPUES de promo" + detallePedido.getSubTotal());
+
+                } else {
+                    detallePedido.setSubTotal(detalle.getCantidad() * articulo.getPrecioVenta());
+                }
                 detallePedidos.add(detallePedido);
 
                 //Añadir articulos
                 articulos.add(articulo);
-            }else if(detalle.getPromocion() != null){
+            } else if (detalle.getPromocion() != null) {
                 Promocion promocion = this.promocionRepository.findById(detalle.getPromocion().getId())
                         .orElseThrow(() -> new RuntimeException("La promocion id: " + detalle.getPromocion().getId() + " no existe."));
-                for(PromocionDetalle promocionDetalle : promocion.getPromocionDetalles()){
-                    descontarStock(promocionDetalle.getArticulo(), promocionDetalle.getCantidad()*detallePedido.getCantidad());
+                for (PromocionDetalle promocionDetalle : promocion.getPromocionDetalles()) {
+                    descontarStock(promocionDetalle.getArticulo(), promocionDetalle.getCantidad() * detallePedido.getCantidad());
                     detallePedido.setPromocion(promocion);
-                    detallePedido.setSubTotal(detalle.getCantidad() * promocion.getPrecioPromocional());
-                    detallePedidos.add(detallePedido);
+                    //aplico descuento en caso de que se elija el medio de TAKE AWAY
+                    if (pedido.getTipoEnvio() == TipoEnvio.TAKE_AWAY) {
+                        detallePedido.setSubTotal(detalle.getCantidad() * promocion.getPrecioPromocional());
+                        System.out.println("El subtotal de pedido antes de promo" + promocion.getPrecioPromocional());
+                        detallePedido.setSubTotal(detallePedido.getSubTotal() * 0.9);
+                        System.out.println("El subtotal de pedido DESPUES de promo" + promocion.getPrecioPromocional());
+
+                    } else {
+                        detallePedido.setSubTotal(detalle.getCantidad() * promocion.getPrecioPromocional());
+                    }
+
+                        detallePedidos.add(detallePedido);
                 }
-            }else {
+            } else {
                 throw new RuntimeException("No se han enviando ni articulos ni promociones en el pedido.");
             }
 
             //Calcular el total del pedido
             total += detallePedido.getSubTotal();
+            System.out.println("Primer Total: " + total);
+
         }
 
-        //Validar total de la venta
+        //Agregar descuento a TOTAL PEDIDO del 10%
+        if (pedido.getTipoEnvio() == TipoEnvio.TAKE_AWAY) {
+        pedido.setTotal(pedido.getTotal()*0.9);
+        }
+
+            //Validar total de la venta
         if(!total.equals(pedido.getTotal())){
             System.out.println(total);
             System.out.println(pedido.getTotal());
