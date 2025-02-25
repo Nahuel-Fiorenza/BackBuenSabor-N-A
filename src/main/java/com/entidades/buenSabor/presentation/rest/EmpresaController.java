@@ -23,4 +23,9 @@ public class EmpresaController extends BaseControllerImp<Empresa, EmpresaDto, Em
     public ResponseEntity<?> findBySucursal(@PathVariable("idSucursal") Long idSucursal){
         return ResponseEntity.ok(facade.findBySucursal(idSucursal));
     }
+
+    @GetMapping("/findBySucursalID/{idSucursal}")
+    public ResponseEntity<?> findBySucursalID(@PathVariable("idSucursal") Long idSucursal){
+        return ResponseEntity.ok(facade.findBySucursalID(idSucursal));
+    }
 }

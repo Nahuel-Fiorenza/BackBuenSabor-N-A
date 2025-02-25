@@ -41,4 +41,10 @@ public class EmpresaFacadeImp extends BaseFacadeImp<Empresa, EmpresaDto, Empresa
     public List<EmpresaDto> getAll() {
         return super.getAll();
     }
+
+
+    @Override
+    public EmpresaDto findBySucursalID(Long idSucursal) {
+        return this.empresaMapper.toDTO(this.empresaService.findBySucursalID(idSucursal));
+    }
 }

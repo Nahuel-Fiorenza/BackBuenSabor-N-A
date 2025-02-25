@@ -10,4 +10,7 @@ public interface EmpresaFacade extends BaseFacade<EmpresaDto, EmpresaDto, Long> 
     EmpresaLargeDto addSucursal(Long idEmpresa, Long idSucursal);
 
     EmpresaDto findBySucursal(Long idSucursal);
+
+    EmpresaDto findBySucursalID(Long idSucursal);
+
 }
