@@ -39,8 +39,12 @@ public class ClienteServiceImp extends BaseServiceImp<Cliente, Long> implements 
 
     @Override
     public Cliente findByEmail(String email) {
+        Cliente cliente = this.clienteRepository.findByUsuarioEmail(email);
+
+        System.out.println(cliente.getDescuentoAsociado());
         return this.clienteRepository.findByUsuarioEmail(email);
     }
+
 
     @Override
     public boolean existsByUsuarioEmail(String email) {

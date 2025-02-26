@@ -6,4 +6,6 @@ import com.entidades.buenSabor.domain.entities.Cliente;
 public interface ClienteService extends BaseService<Cliente, Long> {
     Cliente findByEmail(String email);
     boolean existsByUsuarioEmail(String email);
+
+
 }

@@ -34,4 +34,9 @@ public class Cliente extends Persona{
     @Builder.Default
     @NotAudited
     private Set<Pedido> pedidos = new HashSet<>();
+
+
+    //crear un campo "DescuentoAsociado" Integer/Double...
+    // Agregar el descuento solo al Cliente seleccionado que posee ese descuento pero
+    //el que no tenga descuento quedará igual
 }

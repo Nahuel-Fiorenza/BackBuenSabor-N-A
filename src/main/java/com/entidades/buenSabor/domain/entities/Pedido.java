@@ -42,7 +42,7 @@ public class Pedido extends Base{
     @OneToOne
     private Factura factura;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cliente_id")
     @NotAudited
     private Cliente cliente;
