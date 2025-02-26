@@ -34,4 +34,7 @@ public abstract class Persona extends Base {
     @OneToOne(cascade = CascadeType.ALL)
     @NotAudited
     protected ImagenPersona imagenPersona;
+
+    private int descuentoAsociado;
+
 }

@@ -20,4 +20,6 @@ public class PersonaDto extends BaseDto {
     @Schema(type = "string", format = "date", pattern = "yyyy-MM-dd")
     private LocalDate fechaNacimiento;
     private UsuarioDto usuario;
+    private int descuentoAsociado;
+
 }

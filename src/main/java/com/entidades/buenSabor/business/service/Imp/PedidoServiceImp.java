@@ -49,6 +49,9 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido,Long> implements Ped
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private ClienteRepository clienteRepository;
+
     @Override
     public Pedido create(Pedido pedido) {
         //Verificar el tipo de envio y forma de pago
@@ -81,15 +84,27 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido,Long> implements Ped
                         .orElseThrow(() -> new RuntimeException("El articulo id: " + detalle.getArticulo().getId() + " no existe."));
                 descontarStock(articulo, detallePedido.getCantidad());
                 detallePedido.setArticulo(articulo);
+
                 //aplico descuento en caso de que se elija el medio de TAKE AWAY
                 if (pedido.getTipoEnvio() == TipoEnvio.TAKE_AWAY) {
+
                     detallePedido.setSubTotal(detalle.getCantidad() * articulo.getPrecioVenta());
                     System.out.println("El subtotal de pedido antes de promo" + detallePedido.getSubTotal());
                     detallePedido.setSubTotal(detallePedido.getSubTotal() * 0.9);
                     System.out.println("El subtotal de pedido DESPUES de promo" + detallePedido.getSubTotal());
 
                 } else {
+
                     detallePedido.setSubTotal(detalle.getCantidad() * articulo.getPrecioVenta());
+                }
+                System.out.println("Descuento extra?? " + pedido.getCliente().getDescuentoAsociado());
+
+                if(pedido.getCliente().getDescuentoAsociado()!=0){
+                    int descuentoaplicadoEspecial=pedido.getCliente().getDescuentoAsociado();
+                    double factorDescuento = 1 - (descuentoaplicadoEspecial / 100.0); // Convertimos el descuento a porcentaje
+
+                    detallePedido.setSubTotal(detallePedido.getSubTotal() * factorDescuento );
+
                 }
                 detallePedidos.add(detallePedido);
 
@@ -111,6 +126,13 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido,Long> implements Ped
                     } else {
                         detallePedido.setSubTotal(detalle.getCantidad() * promocion.getPrecioPromocional());
                     }
+                    if(pedido.getCliente().getDescuentoAsociado()!=0){
+                        int descuentoaplicadoEspecial=pedido.getCliente().getDescuentoAsociado();
+                        double factorDescuento = 1 - (descuentoaplicadoEspecial / 100.0); // Convertimos el descuento a porcentaje
+
+                        detallePedido.setSubTotal(detallePedido.getSubTotal() * factorDescuento );
+
+                    }
 
                         detallePedidos.add(detallePedido);
                 }
@@ -127,6 +149,14 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido,Long> implements Ped
         //Agregar descuento a TOTAL PEDIDO del 10%
         if (pedido.getTipoEnvio() == TipoEnvio.TAKE_AWAY) {
         pedido.setTotal(pedido.getTotal()*0.9);
+        }
+        //si usuario tiene mas descuento se lo aplicamos
+        if(pedido.getCliente().getDescuentoAsociado()!=0){
+            int descuentoaplicadoEspecial=pedido.getCliente().getDescuentoAsociado();
+            double factorDescuento = 1 - (descuentoaplicadoEspecial / 100.0); // Convertimos el descuento a porcentaje
+
+            pedido.setTotal(pedido.getTotal()*factorDescuento);
+
         }
 
             //Validar total de la venta
