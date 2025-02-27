@@ -35,7 +35,7 @@ public class FacturaServiceImp extends BaseServiceImp<Factura,Long> implements F
     protected static Font texto = FontFactory.getFont(FontFactory.TIMES, 11);
     protected static Font textoBold = FontFactory.getFont(FontFactory.TIMES_BOLD, 11);
 
-
+//Agregado de imports
     @Override
     public void crearFacturaPdf(Long idPedido, ByteArrayOutputStream outputStream) throws DocumentException, IOException {
         Pedido pedido = this.pedidoRepository.findById(idPedido)
