@@ -40,6 +40,10 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        /**
+         * Configuración de seguridad para la aplicación.
+         * - Configura OAuth2 como sistema de autenticación basado en tokens JWT.
+         */
         http
                 .csrf((csrf) -> csrf.disable())
                 .cors(withDefaults()) //por defecto spring va a buscar un bean con el nombre "corsConfigurationSource".
@@ -64,6 +68,7 @@ public class SecurityConfiguration {
         return http.build();
     }
 
+    //Configura CORS permitiendo solicitudes desde los orígenes especificados y definiendo los métodos y encabezados permitidos.
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -78,6 +83,8 @@ public class SecurityConfiguration {
         return source;
     }
 
+
+// Configura un decodificador JWT que valida el emisor y la audiencia del token.
     @Bean
     JwtDecoder jwtDecoder() {
         NimbusJwtDecoder jwtDecoder = JwtDecoders.fromOidcIssuerLocation(issuer);
@@ -91,6 +98,7 @@ public class SecurityConfiguration {
         return jwtDecoder;
     }
 
+    // Convierte los roles del token JWT en autoridades para la autenticación.
     @Bean
     JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter converter = new JwtGrantedAuthoritiesConverter();
@@ -102,6 +110,7 @@ public class SecurityConfiguration {
         return jwtConverter;
     }
 
+// Habilita o deshabilita el modo de depuración en la seguridad web según la configuración.
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.debug(webSecurityDebug);

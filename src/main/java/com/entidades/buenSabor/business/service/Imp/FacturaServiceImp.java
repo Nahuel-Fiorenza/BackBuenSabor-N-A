@@ -72,7 +72,7 @@ public class FacturaServiceImp extends BaseServiceImp<Factura,Long> implements F
         PdfPTable table = new PdfPTable(2);
         table.setWidthPercentage(100f);
 
-        Image logo = Image.getInstance("https://res.cloudinary.com/dbglrv5xe/image/upload/logo_p4eutb");
+        Image logo = Image.getInstance("https://asset.cloudinary.com/dkzjyx1bm/26d4e9b8993ee894b131e7ce4df74380");
         logo.scalePercent(10f);
 
         PdfPCell logoCell = new PdfPCell(logo);
