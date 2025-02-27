@@ -396,7 +396,7 @@ public class PedidoServiceImp extends BaseServiceImp<Pedido,Long> implements Ped
                 EmailDto email = new EmailDto();
                 email.setDestinatario(pedido.getCliente().getUsuario().getEmail());
                 email.setAsunto("Factura de su pedido #" + id);
-                email.setMensaje("¡Gracias por su compra " + pedido.getCliente().getNombre() + "\uD83D\uDE0E\uD83C\uDF54\uD83C\uDF55\uD83C\uDF5F !" +
+                email.setMensaje("¡Gracias por su compra " + pedido.getCliente().getNombre() + "\uD83C\uDF54\uD83C\uDF55\uD83C\uDF5F !" +
                         "Le adjuntamos su factura. Saludos!");
 
                 //Enviar el correo con la factura adjunta
