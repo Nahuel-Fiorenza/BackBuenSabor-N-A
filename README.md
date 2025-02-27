@@ -1,19 +1,21 @@
 # Backend del Buen Sabor
 
-## Usar las sigeuintes variables de environment:
+## Usar las siguientes variables de environment:
 ```
-AUTH0_AUDIENCE=https://apiejemplotestauth0.com/
-AUTH0_ISSUER_URI=https://dev-yjl15nfd1nm0h2rx.us.auth0.com/
-CLOUDINARY_API_KEY=424196343479554
-CLOUDINARY_API_SECRET=draOz-87OoxZehHDG_Zsh1UkPmM
-CLOUDINARY_NAME=dbglrv5xe
-CORS_ALLOWED_ORIGINS=http://localhost:5173,http://localhost:5174,https://dashboard-buen-sabor-beta.vercel.app/,https://ecommerce-buen-sabor-chi.vercel.app/
-DB_HOST=autorack.proxy.rlwy.net
-DB_NAME=railway
-DB_PASSWORD=MSZANaORtYrMkzbcBblbpWatZeKMvUPX
-DB_PORT=27066
-DB_USER=root
+AUTH0_AUDIENCE=https://apiejemplotestauth0.com/;
+AUTH0_ISSUER_URI=https://dev-x8vy0pjgozn71h5n.us.auth0.com/;
+CLOUDINARY_API_KEY=611374676572865;
+CLOUDINARY_API_SECRET=VoXPSimPhxXlF72Z54sZjX7gRx4;
+CLOUDINARY_NAME=dkzjyx1bm;
+CORS_ALLOWED_ORIGINS=http://localhost:5173,http://localhost:5174,http://localhost:8080;
+DB_HOST=mysql.railway.internal;
+DB_NAME=railway;
+DB_PASSWORD=BVzwVLTYjwvHhTmkuvtpunyHAFvxWMCq;
+DB_PORT=3306;
+DB_USER=root;
+MP_URL=http://localhost:5174;
 SPRING_SECURITY_LOG_LEVEL=INFO
 WEB_SECURITY_DEBUG=true
-MP_URL=http://localhost:5174
+
 ```
+
